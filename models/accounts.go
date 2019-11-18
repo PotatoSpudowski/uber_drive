@@ -7,6 +7,7 @@ import (
 	"golang.org/x/crypto/bcrypt"
 	"os"
 	"strings"
+	string
 )
 
 type Token struct {
@@ -57,4 +58,11 @@ func (account *Account) Create() (map[string] interface{}) {
 	token := jwt.NewWithClaims(jwt.GetSigningMethod("HS256"), tk)
 	tokenString, _ := token.SignedString([]byte(os.Getenv("token_password")))
 	account.Token = tokenString
+
+	account.Password = ""
+
+	response := u.Message(true, "Account has been created")
+	response["account"] = account
+	return response
 }
+
