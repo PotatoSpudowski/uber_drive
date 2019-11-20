@@ -9,7 +9,7 @@ import (
 
 var CreateRides = func(w http.ResponseWriter, r *http.Request) {
 
-	user := r.Context().Value("user").(uint)
+	driver := r.Context().Value("driverid").(uint)
 	ride := &models.Ride{}
 
 	err := json.NewDecoder(r.Body).Decode(ride)
@@ -17,6 +17,10 @@ var CreateRides = func(w http.ResponseWriter, r *http.Request) {
 		u.Respond(w, u.Message(false, "Error whle decoding request body"))
 		return
 	}
+
+	ride.DriverID = driver
+	resp := ride.Create()
+	u.Respond(w, resp)
 }
 
 var GetRidesFor = func(w http.ResponseWriter, r *http.Request) {

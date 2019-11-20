@@ -33,12 +33,12 @@ func (account *Account) Validate() (map[string]interface{}, bool) {
 
 	temp := &Account{}
 
-	err := GetDB().Table("accounts").Where("driverid = ?", account.Email).First(temp).Error
+	err := GetDB().Table("accounts").Where("email = ?", account.Email).First(temp).Error
 	if err != nil && err != gorm.ErrRecordNotFound {
 		return u.Message(false, "Connection error. Please retry"), false
 	}
 	if temp.Email != "" {
-		return u.Message(false, "DriverID already in use by another account."), false
+		return u.Message(false, "Email already in use by another account."), false
 	}
 	return u.Message(false, "Requirement passed"), true
 }

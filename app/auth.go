@@ -13,8 +13,10 @@ import (
 )
 
 var JwtAuthentication = func(next http.Handler) http.Handler {
-	return http.HandleFunc(func(w http.ResponseWriter, r *http.Request){
-		noAuth := []string{"/api/driver/new", "/api/driver/login"} //dont auth these endpoints
+
+	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request){
+
+		noAuth := []string{"/api/drivers/new", "/api/drivers/login"} //dont auth these endpoints
 		requestPath := r.URL.Path
 
 		for _, value := range noAuth {
@@ -59,9 +61,17 @@ var JwtAuthentication = func(next http.Handler) http.Handler {
 			return
 		}
 
+		if !token.Valid {
+			response = u.Message(false, "Token invalid")
+			w.WriteHeader(http.StatusForbidden)
+			w.Header().Add("Content-type", "application/json")
+			u.Respond(w, response)
+			return
+		}
+
 		fmt.Sprintf("Driver %", tk.UserID)
 		ctx := context.WithValue(r.Context(), "driver", tk.UserID)
 		r = r.WithContext(ctx)
 		next.ServeHTTP(w, r)
-	})
+	});
 } 
