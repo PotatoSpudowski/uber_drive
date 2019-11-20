@@ -1,1 +1,3 @@
-Todo: Everything lol
+A few bugs here and there but hey, If life was perfect it would'nt be interesting :)))))
+
+JK I will fix them after my VIVA...
