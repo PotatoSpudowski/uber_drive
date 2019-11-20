@@ -31,7 +31,7 @@ var JwtAuthentication = func(next http.Handler) http.Handler {
 			response = u.Message(false, "Missing auth token")
 			w.WriteHeader(http.StatusForbidden)
 			w.Header().Add("Content-Type", "application/json")
-			u.Resond(w, response)
+			u.Respond(w, response)
 			return
 		}
 
@@ -39,7 +39,7 @@ var JwtAuthentication = func(next http.Handler) http.Handler {
 		if len(splitted) != 2 {
 			response = u.Message(false, "Invalid/Malformed auth token")
 			w.WriteHeader(http.StatusForbidden)
-			w.Header("Content-type", "application/json")
+			w.Header().Add("Content-type", "application/json")
 			
 		}
 
@@ -55,12 +55,12 @@ var JwtAuthentication = func(next http.Handler) http.Handler {
 			response = u.Message(false, "Malformed auth token")
 			w.WriteHeader(http.StatusForbidden)
 			w.Header().Add("Content-Type", "application/json")
-			u.Resond(w, response)
+			u.Respond(w, response)
 			return
 		}
 
-		fmt.Sprintf("User %", tk.UserId)
-		ctx := context.WithValue(r.Context(), "driver", tk.UserId)
+		fmt.Sprintf("Driver %", tk.UserID)
+		ctx := context.WithValue(r.Context(), "driver", tk.UserID)
 		r = r.WithContext(ctx)
 		next.ServeHTTP(w, r)
 	})

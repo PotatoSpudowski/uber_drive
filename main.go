@@ -15,8 +15,8 @@ func main() {
 
 	router.HandleFunc("/api/drivers/new", controllers.CreateAccount).Methods("POST")
 	router.HandleFunc("/api/drivers/login", controllers.Authenticate).Methods("POST")
-	// router.HandleFunc("/api/rides/new", controllers.CreateRide).Methods("POST")
-	// router.HandleFunc("/api/me/rides", controllers.GetRidesFor).Methods("GET")
+	router.HandleFunc("/api/rides/new", controllers.CreateRide).Methods("POST")
+	router.HandleFunc("/api/me/rides", controllers.GetRidesFor).Methods("GET")
 
 	router.Use(app.JwtAuthentication)
 
