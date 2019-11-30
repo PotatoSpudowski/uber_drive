@@ -1,3 +1,6 @@
-A few bugs here and there but hey, If life was perfect it would'nt be interesting right? :)))))
+# uber_drive
 
-JK I will fix the bugs after my Finals...
+Todo:
+* Fix bugs
+* Add documentation
+* Add logic to match users and drivers 
